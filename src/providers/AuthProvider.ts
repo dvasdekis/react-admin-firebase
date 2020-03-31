@@ -45,7 +45,11 @@ class AuthClient {
         const user = await this.auth.signInWithEmailAndPassword(
           username,
           password
-        );
+        ).then(function (userObject) {
+          // Write the JWT component to local storage
+          window.localStorage.setItem('JWT', Array.from(userObject)[0]['user']['xa']);
+          return userObject
+        });
         log("HandleAuthLogin: user sucessfully logged in", { user });
         return user;
       } catch (e) {

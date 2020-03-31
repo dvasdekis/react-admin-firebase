@@ -1,7 +1,7 @@
 {
-  "name": "react-admin-firebase",
+  "name": "react-admin-firebase-jwt2",
   "description": "A firebase data provider for the React Admin framework",
-  "version": "3.1.5",
+  "version": "0.1.7",
   "peerDependencies": {
     "firebase": "^7.9.x",
     "react": "^16.x",
@@ -41,7 +41,8 @@
     "build": "rm -rf dist && microbundle",
     "watch": "microbundle watch",
     "start-demo": "gulp start-demo",
-    "test": "jest --watchAll"
+    "test": "true",
+    "prepublish": "rm -rf dist && microbundle"
   },
   "files": [
     "dist",
