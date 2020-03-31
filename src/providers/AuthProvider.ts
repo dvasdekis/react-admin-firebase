@@ -47,7 +47,7 @@ class AuthClient {
           password
         ).then(function (userObject) {
           // Write the JWT component to local storage
-          window.localStorage.setItem('JWT', Array.from(userObject)[0]['user']['xa']);
+          window.localStorage.setItem('JWT', Array.from(userObject)[0]['user']['xa'] as string);
           return userObject
         });
         log("HandleAuthLogin: user sucessfully logged in", { user });
