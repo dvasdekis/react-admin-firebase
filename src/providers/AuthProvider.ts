@@ -47,7 +47,7 @@ class AuthClient {
           password
         ).then(function (userObject) {
           // Write the JWT component to local storage
-          let userArray: Array<string> = Array.from(userObject);
+          let userArray: Array<string> = Array.from(userObject as any);
           let JWTString: string = userArray[0]['user']['xa'];
           window.localStorage.setItem('JWT', JWTString);
           return userObject
