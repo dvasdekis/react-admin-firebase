@@ -42,24 +42,18 @@ class AuthClient {
 
     if (username && password) {
       try {
-        const user = await this.auth.signInWithEmailAndPassword(
+        const userPromise = await this.auth.signInWithEmailAndPassword(
           username,
-          password
-        ).then(function (userObject) {
-          // Write the JWT component to local storage
-          let userArray: Array<string> = Array.from(userObject as any);
-          let JWTString: string = userArray[0]['user']['xa'];
-          window.localStorage.setItem('JWT', JWTString);
-          return userObject
-        });
-        log("HandleAuthLogin: user sucessfully logged in", { user });
-        return user;
+          password);
+        log("HandleAuthLogin: user sucessfully logged in", { userPromise });
+        return await this.HandleGetJWTToken();
       } catch (e) {
         log("HandleAuthLogin: invalid credentials", { params });
         throw new Error("Login error: invalid credentials");
       }
     } else {
-      return this.getUserLogin();
+       await this.getUserLogin();
+       return await this.HandleGetJWTToken();
     }
   }
 
@@ -185,6 +179,7 @@ export function AuthProvider(firebaseConfig: {}, options: RAFirebaseOptions) {
   VerifyAuthProviderArgs(firebaseConfig, options);
   const auth = new AuthClient(firebaseConfig, options);
   CheckLogging(firebaseConfig, options);
+
 
   return {
     login: params => auth.HandleAuthLogin(params),
